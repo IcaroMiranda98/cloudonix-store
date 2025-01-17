@@ -1,5 +1,9 @@
-<app-header></app-header>
-<app-container>
+@if (userAuth) {
+  <app-header (authChanged)="userAuth = !userAuth"></app-header>
+}
+<main id="root">
   <router-outlet />
-</app-container>
-<app-footer></app-footer>
+</main>
+@if (userAuth) {
+  <app-footer></app-footer>
+}

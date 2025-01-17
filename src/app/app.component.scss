@@ -1,0 +1,9 @@
+#root {
+  display: flow;
+  flex-direction: column;
+  min-height: 80vh;
+}
+
+#root router-outlet {
+  flex: 1;
+}

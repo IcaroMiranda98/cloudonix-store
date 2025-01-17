@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
-import { ContainerComponent } from "../container/container.component";
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ContainerComponent } from '../container/container.component';
 
 @Component({
   selector: 'app-footer',
-  imports: [ContainerComponent],
+  standalone: true,
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    ContainerComponent,
+  ],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent {
-
-}
+export class FooterComponent {}

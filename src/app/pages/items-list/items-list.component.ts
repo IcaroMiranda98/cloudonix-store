@@ -11,6 +11,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ItemService } from '../../core/services/item.service';
 import { Item } from '../../core/types/types';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { ContainerComponent } from '../../shared/container/container.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
+import { HeaderComponent } from '../../shared/header/header.component';
 @Component({
   selector: 'app-items-list',
   imports: [
@@ -22,6 +25,9 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
     MatIconModule,
     CurrencyPipe,
     MatTooltipModule,
+    ContainerComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.scss'],
@@ -29,7 +35,6 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
 export class ItemsListComponent implements OnInit {
   displayedColumns: string[] = ['Index', 'SKU', 'Name', 'Price', 'Actions'];
   dataSource = new MatTableDataSource<Item>([]);
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private itemService = inject(ItemService);
@@ -70,13 +75,22 @@ export class ItemsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const index = this.dataSource.data.findIndex((i) => i.id === item.id);
-        if (index >= 0) {
-          this.dataSource.data.splice(index, 1);
-          this.dataSource._updateChangeSubscription();
-          console.log('Item deleted:', item);
-        }
+        this.itemService.deleteItem(item.id).subscribe({
+          next: () => {
+            console.log('Item deleted successfully');
+            this.removeItemFromTableDataSource(item.id);
+          },
+          error: (error) => {
+            console.error('Error deleting item:', error);
+          },
+        });
       }
     });
+  }
+
+  private removeItemFromTableDataSource(id: number) {
+    const index = this.dataSource.data.findIndex((i) => i.id === id);
+    this.dataSource.data.splice(index, 1);
+    this.dataSource._updateChangeSubscription();
   }
 }

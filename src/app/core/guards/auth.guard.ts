@@ -9,7 +9,19 @@ export const AuthGuard = () => {
   if (tokenService.isThereToken()) {
     return true;
   } else {
-    router.navigate(['/login']);
+    router.navigate(['/auth']);
     return false;
+  }
+};
+
+export const LoginGuard = () => {
+  const tokenService = inject(TokenService);
+  const router = inject(Router);
+
+  if (tokenService.isThereToken()) {
+    router.navigate(['/items']);
+    return false;
+  } else {
+    return true;
   }
 };
