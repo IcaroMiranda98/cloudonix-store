@@ -8,12 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { ItemService } from '../../core/services/item.service';
 import { Item } from '../../core/types/types';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { ContainerComponent } from '../../shared/container/container.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { HeaderComponent } from '../../shared/header/header.component';
+
 @Component({
   selector: 'app-items-list',
   imports: [
@@ -28,6 +30,8 @@ import { HeaderComponent } from '../../shared/header/header.component';
     ContainerComponent,
     HeaderComponent,
     FooterComponent,
+    RouterLink,
+    RouterOutlet,
   ],
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.scss'],

@@ -1,0 +1,78 @@
+  <app-container>
+ 
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title style="margin-bottom: 2vh;">Create a new Item</mat-card-title>
+      <!--<mat-card-subtitle>Non-sporting group</mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content >
+      <form [formGroup]="itemForm" (ngSubmit)="submitForm()" class="main-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Item Name">
+          <mat-error *ngIf="itemForm.get('name')?.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" placeholder="Item Description">
+          <mat-error *ngIf="itemForm.get('description')?.hasError('required')">Description is required</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>SKU</mat-label>
+          <input matInput formControlName="sku" placeholder="Item SKU">
+          <mat-error *ngIf="itemForm.get('sku')?.hasError('required')">SKU is required</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>Cost</mat-label>
+          <input matInput formControlName="cost" type="number" placeholder="Item Cost">
+          <mat-error *ngIf="itemForm.get('cost')?.hasError('required')">Cost is required</mat-error>
+          <mat-error *ngIf="itemForm.get('cost')?.hasError('min')">Cost must be greater than 0</mat-error>
+        </mat-form-field>
+    
+        <div formGroupName="profile" class="form-profile">
+          <div class="type-backlog-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let type of types" [value]="type">{{ type | titlecase }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Backlog</mat-label>
+              <input matInput formControlName="backlog" type="number" placeholder="Backlog Quantity">
+            </mat-form-field>
+          </div>
+          <mat-checkbox formControlName="available">Available</mat-checkbox>
+    
+          <div class="form-profile">
+            <div class="custom-properties-add-button">
+              <h3>Custom Properties</h3>
+              <button mat-raised-button color="primary" (click)="addProfileProperty()">Add Property</button>
+            </div>
+            <div *ngFor="let property of profileProperties; let i = index">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ property.key }}</mat-label>
+                <input matInput [formControlName]="property.key" placeholder="Value">
+              </mat-form-field>
+              <button mat-icon-button color="warn" (click)="removeProfileProperty(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--<div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="itemForm.invalid">Create Item</button>
+        </div>-->
+        <mat-card-actions align="end">
+          <button mat-flat-button color="primary" type="submit" [disabled]="itemForm.invalid">Create Item</button>
+      </mat-card-actions>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+  
+</app-container>
+

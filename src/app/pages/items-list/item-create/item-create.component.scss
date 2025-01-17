@@ -1,0 +1,28 @@
+.profile-properties {
+  margin-top: 2rem;
+}
+
+.main-form {
+  //margin-top: 1rem;
+  display: grid;
+
+  .form-profile {
+    //margin-top: 1rem;
+    display: grid;
+    .custom-properties-add-button {
+      display: flex;
+      align-items: center;
+      gap: 2vh;
+    }
+
+    .type-backlog-row {
+      width: 100%;
+      display: flex;
+      gap: 3vh;
+
+      mat-form-field {
+        flex: 1;
+      }
+    }
+  }
+}
