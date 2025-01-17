@@ -32,7 +32,7 @@
           <mat-error *ngIf="itemForm.get('cost')?.hasError('min')">Cost must be greater than 0</mat-error>
         </mat-form-field>
     
-        <div formGroupName="profile" class="form-profile">
+        <div formGroupName="profile" class="profile-form">
           <div class="type-backlog-row">
             <mat-form-field appearance="fill">
               <mat-label>Type</mat-label>
@@ -47,12 +47,12 @@
           </div>
           <mat-checkbox formControlName="available">Available</mat-checkbox>
     
-          <div class="form-profile">
+          <div >
             <div class="custom-properties-add-button">
               <h3>Custom Properties</h3>
               <button mat-raised-button color="primary" (click)="addProfileProperty()">Add Property</button>
             </div>
-            <div *ngFor="let property of profileProperties; let i = index">
+            <div *ngFor="let property of profileProperties; let i = index" class="dynamic-inputs">
               <mat-form-field appearance="fill">
                 <mat-label>{{ property.key }}</mat-label>
                 <input matInput [formControlName]="property.key" placeholder="Value">
