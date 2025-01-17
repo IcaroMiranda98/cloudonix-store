@@ -1,0 +1,28 @@
+.items-list {
+  margin: 2rem 0 2rem 0;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-action {
+  width: 124px;
+  text-align: center;
+}
+
+.mat-column-name {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-sku {
+  width: 100px;
+}
