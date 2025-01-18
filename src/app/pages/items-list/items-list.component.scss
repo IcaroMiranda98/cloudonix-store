@@ -31,3 +31,12 @@ table {
   margin: 2rem 0 2rem 0;
   float: inline-end;
 }
+
+.mat-mdc-table {
+  background-color: whitesmoke;
+}
+
+#createButton {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-inverse-on-surface);
+}

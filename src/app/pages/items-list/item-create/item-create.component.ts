@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,8 +22,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterModule,
+} from '@angular/router';
 import { ItemService } from '../../../core/services/item.service';
+import { Item } from '../../../core/types/types';
 import { ContainerComponent } from '../../../shared/container/container.component';
 
 @Component({
@@ -36,22 +49,31 @@ import { ContainerComponent } from '../../../shared/container/container.componen
     CommonModule,
     ContainerComponent,
     MatCardModule,
+    RouterLink,
   ],
   templateUrl: './item-create.component.html',
   styleUrls: ['./item-create.component.scss'],
 })
-export class ItemCreateComponent {
+export class ItemCreateComponent implements OnInit {
+  @Input() readonly: boolean = false;
+  @Input() item?: Item;
+  @Output() itemEmitter: EventEmitter<Item> = new EventEmitter<Item>();
   itemForm: FormGroup;
+  isEditRoute = false;
   profileProperties: { key: string; value: string }[] = [];
   types = ['furniture', 'equipment', 'stationary', 'part'];
-
+  private route = inject(ActivatedRoute);
   private itemService = inject(ItemService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
   constructor() {
-    this.itemForm = this.fb.group({
+    this.itemForm = this._genereteFormControls();
+  }
+  private _genereteFormControls() {
+    return this.fb.group({
+      id: [0, Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
       sku: ['', Validators.required],
@@ -64,19 +86,48 @@ export class ItemCreateComponent {
     });
   }
 
-  addProfileProperty() {
-    const key = prompt('Enter the key for the new property:');
-    if (key) {
-      (this.itemForm.get('profile') as FormGroup<any>).addControl(
-        key,
-        this.fb.control('', Validators.required)
-      );
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) return;
+    this.fetchItem(this.route.snapshot.paramMap.get('id')!);
 
-      this.profileProperties.push({ key, value: '' });
+    const currentRoute = this.route.snapshot.routeConfig?.path;
+    if (currentRoute === 'item/edit/:id') {
+      this.isEditRoute = true;
+    }
+
+    console.log(
+      this.isEditRoute,
+      'Item ID:',
+      this.route.snapshot.paramMap.get('id')!
+    );
+  }
+
+  addProfileProperty() {
+    const key: string = prompt('Enter the key for the new property:')!;
+    this._addProfileProperty(key);
+  }
+
+  private _addProfileProperty(key: string, value?: string) {
+    const formGroup = this.itemForm.get('profile') as FormGroup;
+    if (key) {
+      if (formGroup.contains(key) && !value) {
+        this.snackBar.open(`Property "${key}" alredy added!`, 'Close', {
+          duration: 3000,
+        });
+        return;
+      }
+
+      value = value ?? '';
+
+      formGroup.addControl(key, this.fb.control(value, Validators.required));
+      this.profileProperties.push({ key, value });
     }
   }
 
   removeProfileProperty(index: number) {
+    const key = this.profileProperties[index].key;
+    (this.itemForm.get('profile') as FormGroup<any>).removeControl(key);
     this.profileProperties.splice(index, 1);
   }
 
@@ -84,23 +135,51 @@ export class ItemCreateComponent {
     if (this.itemForm.invalid) {
       return;
     }
+    this.itemEmitter.emit(this.itemForm.value);
+    if (!this.isEditRoute) {
+      this._createItem();
+    } else {
+      this._updateItem();
+    }
+  }
 
-    const formData = this.itemForm.value;
-    console.log(formData);
-    /*const newItem: Item = {
-      ...formData,
-      profile: {
-        ...formData.profile,
-        customProperties: this.profileProperties.reduce((acc, prop) => {
-          acc[prop.key] = prop.value;
-          return acc;
-        }, {}),
+  private _createItem() {
+    this.itemService.createItem(this.itemForm.value).subscribe({
+      next: (item) => {
+        this.snackBar.open('Item created successfully!', 'Close', {
+          duration: 3000,
+        });
+        this.router.navigate(['']);
       },
-    };
+      error: (err) => {
+        this.snackBar.open('Error creating item', 'Close', { duration: 3000 });
+      },
+    });
+  }
 
-    console.log(newItem);
+  private _updateItem() {
+    const updatedItem = { ...this.itemForm.value };
+    delete updatedItem.sku;
+    console.log(updatedItem);
+    this.itemService.updateItem(updatedItem).subscribe({
+      next: (item) => {
+        this.snackBar.open('Item updated successfully!', 'Close', {
+          duration: 3000,
+        });
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        this.snackBar.open('Error updating item', 'Close', { duration: 3000 });
+      },
+    });
+  }
 
-    this.itemService.createItem(newItem).subscribe({
+  submitFormUpdate() {
+    if (this.itemForm.invalid) {
+      return;
+    }
+    this.itemEmitter.emit(this.itemForm.value);
+    this.itemService.createItem(this.itemForm.value).subscribe({
       next: (item) => {
         this.snackBar.open('Item created successfully!', 'Close', {
           duration: 3000,
@@ -110,6 +189,38 @@ export class ItemCreateComponent {
       error: (err) => {
         this.snackBar.open('Error creating item', 'Close', { duration: 3000 });
       },
-    });*/
+    });
+  }
+
+  loadDynamicFormgroup(profile: Record<string, string>) {
+    const keys = this._filterProfile(profile);
+    keys.forEach((key) => {
+      this._addProfileProperty(key, profile[key]);
+    });
+  }
+
+  private _loadForm(item: Item) {
+    this.itemForm.patchValue(item);
+  }
+
+  private _filterProfile(profile: Record<string, string>) {
+    const keysToRemove = ['available', 'type', 'backlog'];
+    const keys = Object.keys(profile).filter(
+      (key) => !keysToRemove.includes(key)
+    );
+    return keys;
+  }
+
+  fetchItem(id: string): void {
+    this.itemService.getItem(id).subscribe({
+      next: (item: Item) => {
+        this.item = item;
+        this.loadDynamicFormgroup(item.profile);
+        this._loadForm(this.item);
+      },
+      error: (error) => {
+        console.error('Error loading item:', error);
+      },
+    });
   }
 }

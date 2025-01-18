@@ -6,7 +6,7 @@ export const AuthGuard = () => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
 
-  if (tokenService.isThereToken()) {
+  if (tokenService.isTokenized()) {
     return true;
   } else {
     router.navigate(['/auth']);
@@ -18,7 +18,7 @@ export const LoginGuard = () => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
 
-  if (tokenService.isThereToken()) {
+  if (tokenService.isTokenized()) {
     router.navigate(['/items']);
     return false;
   } else {

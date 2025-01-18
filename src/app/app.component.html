@@ -1,9 +1,9 @@
-@if (userAuth) {
-  <app-header (authChanged)="userAuth = !userAuth"></app-header>
+@if (!isLoginPage()) {
+  <app-header></app-header>
 }
 <main id="root">
   <router-outlet />
 </main>
-@if (userAuth) {
+@if (!isLoginPage()) {
   <app-footer></app-footer>
 }

@@ -3,7 +3,10 @@
     <app-container>
       <div class="container">
         <span class="app-name">Cloudonix|Store</span>
-        <button mat-button (click)="logout()">Logout</button>
+        <button mat-button  id="logoutButton" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
       </div>
     </app-container>
   </mat-toolbar>

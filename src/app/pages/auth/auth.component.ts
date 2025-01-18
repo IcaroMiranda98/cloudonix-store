@@ -28,8 +28,7 @@ export class AuthComponent {
     if (this.authKey) {
       this.tokenService.saveToken(this.authKey);
       console.log('Authorization Key:', this.authKey);
-      this.router.navigate(['/items']);
-      // Perform your authentication logic here
+      this.router.navigate(['']);
     } else {
       console.error('Authorization Key is required!');
     }

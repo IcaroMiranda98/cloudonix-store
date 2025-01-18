@@ -8,6 +8,9 @@ import { Item } from '../types/types';
   providedIn: 'root',
 })
 export class ItemService {
+  getItem(id: string): Observable<Item> {
+    return this.httpClient.get<Item>(`${this.apiUrl}/items/${id}`);
+  }
   readonly apiUrl: string = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) {}
@@ -37,7 +40,7 @@ export class ItemService {
   }
 
   updateItem(item: Item): Observable<Item> {
-    return this.httpClient.put<Item>(`${this.apiUrl}/items/${item.id}`, item);
+    return this.httpClient.patch<Item>(`${this.apiUrl}/items/${item.id}`, item);
   }
 
   deleteItem(id: number): Observable<void> {
