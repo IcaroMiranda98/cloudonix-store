@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,7 +32,7 @@ import { CardItemComponent } from './card-item/card-item.component';
   styleUrl: './product-list-card.component.scss',
   standalone: true,
 })
-export class ProductListCardComponent implements OnDestroy {
+export class ProductListCardComponent implements OnDestroy, OnInit {
   dataSource = new MatTableDataSource<Product>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   items$?: Observable<Product[]>;
@@ -56,7 +56,9 @@ export class ProductListCardComponent implements OnDestroy {
           this.dataSource.paginator = this.paginator;
         }
       },
-      error: (error) => {},
+      error: (error) => {
+        return error;
+      },
     });
   }
 
@@ -76,7 +78,9 @@ export class ProductListCardComponent implements OnDestroy {
           next: () => {
             this.removeItemFromTableDataSource(item.id);
           },
-          error: (error) => {},
+          error: (error) => {
+            return error;
+          },
         });
       }
     });

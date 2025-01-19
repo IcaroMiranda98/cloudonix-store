@@ -1,5 +1,5 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,7 +31,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   styleUrl: './product-list-table.component.scss',
   standalone: true,
 })
-export class ProductListTableComponent {
+export class ProductListTableComponent implements OnInit {
   dataSource = new MatTableDataSource<Product>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['Index', 'SKU', 'Name', 'Price', 'Actions'];
@@ -54,7 +54,9 @@ export class ProductListTableComponent {
           this.dataSource.paginator = this.paginator;
         }
       },
-      error: (error) => {},
+      error: (error) => {
+        return error;
+      },
     });
   }
 
@@ -74,7 +76,9 @@ export class ProductListTableComponent {
           next: () => {
             this.removeItemFromTableDataSource(item.id);
           },
-          error: (error) => {},
+          error: (error) => {
+            return error;
+          },
         });
       }
     });

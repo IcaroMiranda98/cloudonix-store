@@ -28,7 +28,7 @@ import { TokenService } from '../../core/services/token.service';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
-  authKey: string = '';
+  authKey = '';
   private tokenService = inject(TokenService);
   private router = inject(Router);
   private fb = inject(FormBuilder);

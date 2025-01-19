@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CreateComponent {
-  id: string = '';
-  title: string = 'Create a new item';
+  id = '';
+  title = 'Create a new item';
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   productResultProcess($event: any) {
     if (!$event.detail) {
       this.router.navigate(['']);

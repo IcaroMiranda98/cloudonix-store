@@ -4,7 +4,7 @@ export class Product {
   description: string;
   sku: string;
   cost: number;
-  profile: Record<string, any>;
+  profile: Record<string, string | number>;
 
   constructor(
     id: number,
@@ -12,7 +12,7 @@ export class Product {
     description: string,
     sku: string,
     cost: number,
-    profile: Record<string, any>
+    profile: Record<string, string | number>
   ) {
     this.id = id;
     this.name = name;

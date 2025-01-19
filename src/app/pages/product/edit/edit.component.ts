@@ -16,8 +16,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EditComponent implements OnInit {
-  id: string = '';
-  title: string = 'Edit item';
+  id = '';
+  title = 'Edit item';
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
@@ -28,6 +28,7 @@ export class EditComponent implements OnInit {
     this.id = id;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   productResultProcess($event: any) {
     if (!$event.detail) {
       this.router.navigate(['']);
@@ -46,4 +47,9 @@ export class EditComponent implements OnInit {
     }
     this.router.navigate(['']);
   }
+}
+
+export interface ProductWComponentMsg {
+  result: boolean;
+  message: string;
 }

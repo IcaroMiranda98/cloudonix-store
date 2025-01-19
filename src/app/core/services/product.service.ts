@@ -19,7 +19,7 @@ export class ProductService {
     return this.httpClient
       .get<Product[]>(`${this.apiUrl}/items`)
       .pipe(
-        map((data: any[]) =>
+        map((data: Product[]) =>
           data.map(
             (item) =>
               new Product(
