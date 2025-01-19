@@ -3,7 +3,9 @@
 @if (!isLoginPage()) {
   <app-header></app-header>
 }
+<main id="root">
   <router-outlet />
+</main>
 @if (!isLoginPage()) {
   <app-footer></app-footer>
 }

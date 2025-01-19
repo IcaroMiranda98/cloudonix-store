@@ -61,6 +61,9 @@ export class AppComponent implements OnChanges {
     this.productForm = this._genereteFormControls();
   }
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isEditRoute'] && this.isEditRoute) {
+      this.productForm.controls['sku'].disable();
+    }
     if (changes['id'] && this.id) {
       this.fetchProduct(this.id);
     }
@@ -71,7 +74,7 @@ export class AppComponent implements OnChanges {
       id: [0, Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      sku: [{ value: '', disabled: !this.isEditRoute }, Validators.required],
+      sku: ['', Validators.required],
       cost: [null, [Validators.required, Validators.min(0)]],
       profile: this.fb.group({
         type: ['furniture'],
@@ -108,15 +111,6 @@ export class AppComponent implements OnChanges {
     if (key) {
       if (formGroup.contains(key) && !value) {
         alert(`Property "${key}" alredy added!`);
-
-        /*const snackBarRef = this.snackBar.open(
-          `Property "${key}" alredy added!`,
-          'teste',
-          {
-            duration: 1000,
-          }
-        );*/
-
         return;
       }
 
@@ -141,14 +135,21 @@ export class AppComponent implements OnChanges {
   private _createproduct() {
     this.productService.createProduct(this.productForm.value).subscribe({
       next: (product) => {
-        this.snackBar.open('product created successfully!', 'Close', {
-          duration: 3000,
+        this.result.emit({
+          result: true,
+          message: 'product created successfully!',
         });
-        //this.router.navigate(['']);
       },
       error: (err) => {
-        this.snackBar.open('Error creating product', 'Close', {
-          duration: 3000,
+        let errorMessage = '';
+        if (err.error?.message) {
+          errorMessage = err.error.message;
+        } else {
+          errorMessage = 'An unexpected error occurred.';
+        }
+        this.result.emit({
+          result: false,
+          message: errorMessage,
         });
       },
     });
@@ -180,11 +181,9 @@ export class AppComponent implements OnChanges {
   }
 
   fetchProduct(id: string): void {
-    console.log('retorno forçado antes', this.id);
     if (this.id == undefined) {
       return;
     }
-    console.log('retorno forçado depois');
 
     this.productService.getProduct(id).subscribe({
       next: (product: Product) => {
@@ -192,8 +191,17 @@ export class AppComponent implements OnChanges {
         this.loadDynamicFormgroup(product.profile);
         this._loadForm(product);
       },
-      error: (error) => {
-        console.error('Error loading item:', error);
+      error: (err) => {
+        let errorMessage = '';
+        if (err.error?.message) {
+          errorMessage = err.error.message;
+        } else {
+          errorMessage = 'An unexpected error occurred.';
+        }
+        this.result.emit({
+          result: false,
+          message: errorMessage,
+        });
       },
     });
   }
