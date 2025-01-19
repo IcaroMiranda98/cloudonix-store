@@ -21,7 +21,16 @@ export const routes: Routes = [
   },
 
   {
-    path: 'item/edit/:id',
+    path: 'product/new',
+    loadComponent: () =>
+      import('./pages/item/create/create.component').then(
+        (mod) => mod.CreateComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'product/edit/:id',
     loadComponent: () =>
       import('./pages/item/edit/edit.component').then(
         (mod) => mod.EditComponent
@@ -37,5 +46,5 @@ export const routes: Routes = [
   },
 
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
-  { path: '**', redirectTo: '/home' },
+  //{ path: '**', redirectTo: '/home' },
 ];

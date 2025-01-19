@@ -6,8 +6,15 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: var(--mat-sys-background);
+  color: var(--mat-sys-secondary);
 }
 
 button {
   max-height: 5vh;
+}
+
+.mat-elevation-custom {
+  border: 0;
+  box-shadow: 0px 6px 10px -4px rgba(0, 0, 0, 0.2),
+    0px 10px 18px 0px rgba(0, 0, 0, 0.14), 0px 3px 5px -2px rgba(0, 0, 0, 0.12);
 }

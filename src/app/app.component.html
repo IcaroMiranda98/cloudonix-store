@@ -4,7 +4,9 @@
   <app-header></app-header>
 }
 <main id="root">
-  <router-outlet />
+  <app-container>
+  <router-outlet /> 
+</app-container>
 </main>
 @if (!isLoginPage()) {
   <app-footer></app-footer>
