@@ -3,7 +3,8 @@
 }
 
 .main-form {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1vh;
 
   .profile-form {
@@ -26,9 +27,16 @@
     }
 
     .dynamic-inputs {
+      display: flex;
       mat-form-field {
-        width: 46%;
+        width: 100%;
       }
+    }
+  }
+  @media (max-width: 480px) {
+    .profile-form {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

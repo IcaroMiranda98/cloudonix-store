@@ -1,6 +1,8 @@
 .app-footer {
   width: 100%;
+  height: auto;
   position: relative;
+  display: flex;
   bottom: 0;
   left: 0;
   margin-top: 2vh;
@@ -15,6 +17,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
+}
+@media (max-width: 480px) {
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 span {
