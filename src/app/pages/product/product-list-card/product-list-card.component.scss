@@ -2,3 +2,21 @@
   background-color: var(--mat-sys-background);
   width: 100%;
 }
+
+.floating-button {
+  position: fixed; /* Fixa o botão em uma posição específica na tela */
+  bottom: 20px; /* Distância do botão em relação à parte inferior */
+  right: 20px; /* Distância do botão em relação à parte direita */
+  background-color: var(--mat-sys-primary); /* Cor de fundo do botão */
+  color: var(--mat-sys-background);
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transição suave */
+}
+
+.floating-button:hover {
+  background-color: var(--mat-sys-tertiary); /* Cor ao passar o mouse */
+  transform: scale(1.1); /* Aumenta levemente o botão ao passar o mouse */
+}
+
+.floating-button:active {
+  transform: scale(0.95); /* Reduz levemente o botão ao clicar */
+}

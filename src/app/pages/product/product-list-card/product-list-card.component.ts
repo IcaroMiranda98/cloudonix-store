@@ -1,4 +1,4 @@
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -23,7 +23,6 @@ import { CardItemComponent } from './card-item/card-item.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    CurrencyPipe,
     RouterLink,
     MatCardModule,
     CommonModule,
