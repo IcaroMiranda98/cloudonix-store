@@ -16,6 +16,7 @@ import { HeaderComponent } from './shared/header/header.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  standalone: true,
 })
 export class AppComponent implements OnInit {
   title = 'Cloudonix Store';

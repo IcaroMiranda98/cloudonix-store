@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-container',
   imports: [],
   templateUrl: './container.component.html',
-  styleUrl: './container.component.scss'
+  standalone: true,
+  styleUrl: './container.component.scss',
 })
-export class ContainerComponent {
-
-}
+export class ContainerComponent {}

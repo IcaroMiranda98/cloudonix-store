@@ -30,6 +30,7 @@ import { ContainerComponent } from '../../shared/container/container.component';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  standalone: true,
 })
 export class HomeComponent {
   displayedColumns: string[] = ['Index', 'SKU', 'Name', 'Price', 'Actions'];

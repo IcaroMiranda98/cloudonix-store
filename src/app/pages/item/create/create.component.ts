@@ -8,6 +8,7 @@ import { ContainerComponent } from '../../../shared/container/container.componen
   imports: [ContainerComponent],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
+  standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CreateComponent {

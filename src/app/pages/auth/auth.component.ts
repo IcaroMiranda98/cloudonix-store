@@ -24,6 +24,7 @@ import { TokenService } from '../../core/services/token.service';
     ReactiveFormsModule,
   ],
   templateUrl: './auth.component.html',
+  standalone: true,
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {

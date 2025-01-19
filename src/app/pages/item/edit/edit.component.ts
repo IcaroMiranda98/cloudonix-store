@@ -13,6 +13,7 @@ import { ContainerComponent } from '../../../shared/container/container.componen
   imports: [ContainerComponent],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss',
+  standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EditComponent implements OnInit {

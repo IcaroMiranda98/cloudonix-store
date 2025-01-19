@@ -15,6 +15,7 @@ import { ContainerComponent } from '../container/container.component';
     ContainerComponent,
   ],
   templateUrl: './header.component.html',
+  standalone: true,
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {

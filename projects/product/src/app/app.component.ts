@@ -42,6 +42,7 @@ import { Product } from './product';
     MatCardModule,
   ],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnChanges {

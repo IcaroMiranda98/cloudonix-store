@@ -1,27 +1,41 @@
 import { Routes } from '@angular/router';
 import { AuthGuard, LoginGuard } from './core/guards/auth.guard';
 import { AuthComponent } from './pages/auth/auth.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CreateComponent } from './pages/item/create/create.component';
-import { EditComponent } from './pages/item/edit/edit.component';
-import { ProductResolver } from './product.resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./pages/home/home.component').then((mod) => mod.HomeComponent),
+    canActivate: [AuthGuard],
+  },
+
   {
     path: 'item/new',
-    component: CreateComponent,
+    loadComponent: () =>
+      import('./pages/item/create/create.component').then(
+        (mod) => mod.CreateComponent
+      ),
     canActivate: [AuthGuard],
   },
+
   {
     path: 'item/edit/:id',
-    component: EditComponent,
+    loadComponent: () =>
+      import('./pages/item/edit/edit.component').then(
+        (mod) => mod.EditComponent
+      ),
     canActivate: [AuthGuard],
-    resolve: {
-      product: ProductResolver,
-    },
   },
+
+  {
+    path: 'auth',
+    loadComponent: () =>
+      import('./pages/auth/auth.component').then((mod) => mod.AuthComponent),
+    canActivate: [LoginGuard],
+  },
+
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
   { path: '**', redirectTo: '/home' },
 ];

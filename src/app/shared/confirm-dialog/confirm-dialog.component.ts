@@ -11,6 +11,7 @@ import {
   imports: [MatDialogModule, MatButtonModule],
   templateUrl: './confirm-dialog.component.html',
   styleUrl: './confirm-dialog.component.scss',
+  standalone: true,
 })
 export class ConfirmDialogComponent {
   constructor(
