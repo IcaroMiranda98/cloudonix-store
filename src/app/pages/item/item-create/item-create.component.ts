@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   EventEmitter,
   inject,
   Input,
@@ -53,11 +54,13 @@ import { ContainerComponent } from '../../../shared/container/container.componen
   ],
   templateUrl: './item-create.component.html',
   styleUrls: ['./item-create.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ItemCreateComponent implements OnInit {
   @Input() readonly: boolean = false;
   @Input() item?: Item;
   @Output() itemEmitter: EventEmitter<Item> = new EventEmitter<Item>();
+  id?: string;
   itemForm: FormGroup;
   isEditRoute = false;
   profileProperties: { key: string; value: string }[] = [];
@@ -67,6 +70,10 @@ export class ItemCreateComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
   private fb = inject(FormBuilder);
+
+  teste($event: any) {
+    console.log($event.detail);
+  }
 
   constructor() {
     this.itemForm = this._genereteFormControls();
@@ -87,20 +94,19 @@ export class ItemCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.item = this.route.snapshot.data['product'];
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
-    this.fetchItem(this.route.snapshot.paramMap.get('id')!);
+    this.id = id;
+    this.item = this.route.snapshot.data['product'];
+    this.loadDynamicFormgroup(this.item!.profile);
+    this._loadForm(this.item!);
+    //this.fetchItem(this.route.snapshot.paramMap.get('id')!);
 
     const currentRoute = this.route.snapshot.routeConfig?.path;
     if (currentRoute === 'item/edit/:id') {
       this.isEditRoute = true;
     }
-
-    console.log(
-      this.isEditRoute,
-      'Item ID:',
-      this.route.snapshot.paramMap.get('id')!
-    );
   }
 
   addProfileProperty() {

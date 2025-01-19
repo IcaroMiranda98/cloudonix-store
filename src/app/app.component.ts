@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TokenService } from './core/services/token.service';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -9,11 +14,20 @@ import { HeaderComponent } from './shared/header/header.component';
   imports: [RouterOutlet, FooterComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent implements OnInit {
-  title = 'cloudonix-store';
+  title = 'Cloudonix Store';
   tokenService = inject(TokenService);
   userAuth = false;
+
+  show = false;
+  toggleChild() {
+    this.show = !this.show;
+  }
+  onChange(e: any) {
+    this.title = e?.target?.value;
+  }
 
   ngOnInit(): void {
     this.userAuth = this.tokenService.isTokenized();

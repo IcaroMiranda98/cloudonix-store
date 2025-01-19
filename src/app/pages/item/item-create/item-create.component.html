@@ -1,5 +1,11 @@
   <app-container>
- 
+ @if(id){
+  <product-component [id]="id">
+  </product-component>
+ }
+
+
+    
   <mat-card appearance="outlined">
     <mat-card-header>
       <mat-card-title style="margin-bottom: 2vh;">Create a new Item</mat-card-title>
