@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "buildProduct":"ng build --project product --output-hashing none --single-bundle true --watch"
+    "buildProduct":"ng build --project product --configuration production --output-hashing none --single-bundle true"
   },
   "private": true,
   "dependencies": {

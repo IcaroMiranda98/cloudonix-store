@@ -5,21 +5,30 @@
   height: 100vh;
   background-color: #f5f5f5;
   margin: 0;
+  padding: 16px;
 }
 
 h1 {
   color: var(--mat-sys-primary);
+  text-align: center;
+  margin-right: 0;
+  span {
+    color: var(--mat-sys-tertiary);
+  }
 }
 
 #submitButton {
   background-color: var(--mat-sys-primary);
   color: var(--mat-sys-inverse-on-surface);
 }
+
 .auth-card {
   width: 100%;
   max-width: 400px;
   padding: 20px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
 }
 
 .auth-form {
@@ -35,4 +44,35 @@ h1 {
 
 button {
   margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+  }
+
+  .auth-card {
+    max-width: 90%;
+    padding: 16px;
+  }
+
+  .auth-form {
+    margin-top: 1vh;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .auth-card {
+    padding: 12px;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
 }

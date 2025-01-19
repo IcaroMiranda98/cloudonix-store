@@ -1,0 +1,23 @@
+# Specifies Docker Compose file version
+version: '3.8'
+
+# Define the services that make up your app in docker-compose
+services:
+  # This would be equivalent to running docker container run with the net host option.
+  angular-app:
+    # Name of the container when docker-compose up
+    container_name: angular-nginx-container
+
+    # Build configuration for this service
+    build:
+      # Dockerfile location
+      context: .
+
+      # Dockerfile name, 'Dockerfile' is default value, you can keep it as is or remove this line
+      dockerfile: Dockerfile
+
+    # Expose ports. Format is
+    # <host-port>:<container-port>
+    # In this case, application inside docker will be available at localhost:8081 (on host machine)
+    ports:
+      - "8081:8080"

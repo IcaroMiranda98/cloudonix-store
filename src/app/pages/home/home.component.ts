@@ -50,15 +50,12 @@ export class HomeComponent {
     this.itemService.getItems().subscribe({
       next: (data) => {
         this.dataSource.data = data;
-        console.log('Items loaded:', data);
 
         if (this.paginator) {
           this.dataSource.paginator = this.paginator;
         }
       },
-      error: (error) => {
-        console.error('Error loading products:', error);
-      },
+      error: (error) => {},
     });
   }
 
@@ -80,12 +77,9 @@ export class HomeComponent {
       if (result) {
         this.itemService.deleteItem(item.id).subscribe({
           next: () => {
-            console.log('Item deleted successfully');
             this.removeItemFromTableDataSource(item.id);
           },
-          error: (error) => {
-            console.error('Error deleting item:', error);
-          },
+          error: (error) => {},
         });
       }
     });
