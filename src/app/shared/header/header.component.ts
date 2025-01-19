@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TokenService } from '../../core/services/token.service';
 import { ContainerComponent } from '../container/container.component';
 
@@ -13,6 +13,7 @@ import { ContainerComponent } from '../container/container.component';
     MatButtonModule,
     MatIconModule,
     ContainerComponent,
+    RouterLink,
   ],
   templateUrl: './header.component.html',
   standalone: true,

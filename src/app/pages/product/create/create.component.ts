@@ -1,11 +1,10 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ContainerComponent } from '../../../shared/container/container.component';
 
 @Component({
   selector: 'app-create',
-  imports: [ContainerComponent],
+  imports: [],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
   standalone: true,

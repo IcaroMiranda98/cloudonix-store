@@ -2,27 +2,27 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Item } from '../types/types';
+import { Product } from '../types/types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ItemService {
-  getItem(id: string): Observable<Item> {
-    return this.httpClient.get<Item>(`${this.apiUrl}/items/${id}`);
+export class ProductService {
+  getItem(id: string): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.apiUrl}/items/${id}`);
   }
   readonly apiUrl: string = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) {}
 
-  getItems(): Observable<Item[]> {
+  getProducts(): Observable<Product[]> {
     return this.httpClient
-      .get<Item[]>(`${this.apiUrl}/items`)
+      .get<Product[]>(`${this.apiUrl}/items`)
       .pipe(
         map((data: any[]) =>
           data.map(
             (item) =>
-              new Item(
+              new Product(
                 item.id,
                 item.name,
                 item.description,
@@ -35,15 +35,18 @@ export class ItemService {
       );
   }
 
-  createItem(item: Item): Observable<Item> {
-    return this.httpClient.post<Item>(`${this.apiUrl}/items`, item);
+  createProduct(product: Product): Observable<Product> {
+    return this.httpClient.post<Product>(`${this.apiUrl}/items`, product);
   }
 
-  updateItem(item: Item): Observable<Item> {
-    return this.httpClient.patch<Item>(`${this.apiUrl}/items/${item.id}`, item);
+  updateProduct(product: Product): Observable<Product> {
+    return this.httpClient.patch<Product>(
+      `${this.apiUrl}/items/${product.id}`,
+      product
+    );
   }
 
-  deleteItem(id: number): Observable<void> {
+  deleteProduct(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.apiUrl}/items/${id}`);
   }
 }

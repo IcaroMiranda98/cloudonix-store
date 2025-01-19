@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterLink } from '@angular/router';
-import { Item } from '../../core/types/types';
+import { RouterLink } from '@angular/router';
+import { Product } from '../../../../core/types/types';
 
 @Component({
   selector: 'app-card-item',
@@ -19,14 +19,8 @@ import { Item } from '../../core/types/types';
   styleUrl: './card-item.component.scss',
 })
 export class CardItemComponent {
-  @Input() product!: Item;
-  @Output() cardDeleteEmitter = new EventEmitter<Item>();
-
-  private router = inject(Router);
-
-  /*editProduct() {
-    this.router.navigate([`/item/edit/${this.product.id}`]);
-  }*/
+  @Input() product!: Product;
+  @Output() cardDeleteEmitter = new EventEmitter<Product>();
 
   deleteProduct(): void {
     this.cardDeleteEmitter.emit(this.product);

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthGuard, LoginGuard } from './core/guards/auth.guard';
-import { AuthComponent } from './pages/auth/auth.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,18 +11,9 @@ export const routes: Routes = [
   },
 
   {
-    path: 'item/new',
-    loadComponent: () =>
-      import('./pages/item/create/create.component').then(
-        (mod) => mod.CreateComponent
-      ),
-    canActivate: [AuthGuard],
-  },
-
-  {
     path: 'product/new',
     loadComponent: () =>
-      import('./pages/item/create/create.component').then(
+      import('./pages/product/create/create.component').then(
         (mod) => mod.CreateComponent
       ),
     canActivate: [AuthGuard],
@@ -32,7 +22,7 @@ export const routes: Routes = [
   {
     path: 'product/edit/:id',
     loadComponent: () =>
-      import('./pages/item/edit/edit.component').then(
+      import('./pages/product/edit/edit.component').then(
         (mod) => mod.EditComponent
       ),
     canActivate: [AuthGuard],
@@ -45,6 +35,5 @@ export const routes: Routes = [
     canActivate: [LoginGuard],
   },
 
-  { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
-  //{ path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: '/home' },
 ];

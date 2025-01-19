@@ -2,7 +2,7 @@
   <mat-toolbar class="app-header" color="primary">
     <app-container>
       <div class="container">
-        <span class="app-name">Cloudonix|Store</span>
+        <a class="app-name" [routerLink]="['home']">Cloudonix|Store</a>
         <button mat-button  id="logoutButton" (click)="logout()">
           <mat-icon>logout</mat-icon>
           Logout

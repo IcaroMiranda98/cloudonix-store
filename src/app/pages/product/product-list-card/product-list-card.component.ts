@@ -7,28 +7,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router, RouterLink } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ItemService } from '../../../core/services/item.service';
-import { Item } from '../../../core/types/types';
-import { CardItemComponent } from '../../../shared/card-item/card-item.component';
+import { ProductService } from '../../../core/services/product.service';
+import { Product } from '../../../core/types/types';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
-import { ContainerComponent } from '../../../shared/container/container.component';
+import { CardItemComponent } from './card-item/card-item.component';
 
 @Component({
   selector: 'app-product-list-card',
   imports: [
-    MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     CurrencyPipe,
-    MatTooltipModule,
-    ContainerComponent,
     RouterLink,
     MatCardModule,
     CommonModule,
@@ -39,12 +34,11 @@ import { ContainerComponent } from '../../../shared/container/container.componen
   standalone: true,
 })
 export class ProductListCardComponent implements OnDestroy {
-  dataSource = new MatTableDataSource<Item>([]);
+  dataSource = new MatTableDataSource<Product>([]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  items$?: Observable<Item[]>;
+  items$?: Observable<Product[]>;
 
-  private itemService = inject(ItemService);
-  private router = inject(Router);
+  private itemService = inject(ProductService);
 
   constructor(private dialog: MatDialog) {}
 
@@ -54,7 +48,7 @@ export class ProductListCardComponent implements OnDestroy {
   }
 
   fetchItems(): void {
-    this.itemService.getItems().subscribe({
+    this.itemService.getProducts().subscribe({
       next: (data) => {
         this.dataSource.data = data;
         this.items$ = this.dataSource.connect();
@@ -72,18 +66,14 @@ export class ProductListCardComponent implements OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editItem(item: Item) {
-    this.router.navigate([`/item/edit/${item.id}`]);
-  }
-
-  deleteItem(item: Item): void {
+  deleteItem(item: Product): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { message: `Are you sure you want to delete ${item.name}?` },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.itemService.deleteItem(item.id).subscribe({
+        this.itemService.deleteProduct(item.id).subscribe({
           next: () => {
             this.removeItemFromTableDataSource(item.id);
           },

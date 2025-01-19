@@ -1,4 +1,4 @@
-export class Item {
+export class Product {
   id: number;
   name: string;
   description: string;
@@ -12,7 +12,7 @@ export class Item {
     description: string,
     sku: string,
     cost: number,
-    profile: Record<string, any> 
+    profile: Record<string, any>
   ) {
     this.id = id;
     this.name = name;

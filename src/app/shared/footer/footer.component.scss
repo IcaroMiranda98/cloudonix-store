@@ -25,3 +25,11 @@ span {
 .socials button {
   color: var(--mat-sys-secondary);
 }
+
+a {
+  color: var(--mat-sys-secondary);
+}
+a:hover {
+  color: var(--mat-sys-primary);
+  font-style: oblique;
+}

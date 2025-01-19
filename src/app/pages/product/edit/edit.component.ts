@@ -6,25 +6,23 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContainerComponent } from '../../../shared/container/container.component';
 
 @Component({
   selector: 'app-edit',
-  imports: [ContainerComponent],
+  imports: [],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss',
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EditComponent implements OnInit {
-  id: string = '3';
+  id: string = '';
   title: string = 'Edit item';
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
 
   ngOnInit(): void {
-    debugger;
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
     this.id = id;
