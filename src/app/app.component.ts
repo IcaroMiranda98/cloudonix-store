@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnInit,
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   title = 'Cloudonix Store';
   tokenService = inject(TokenService);
   userAuth = false;
+  isLoginPage2 = computed(() => this.router.url === '/auth');
 
   show = false;
   toggleChild() {

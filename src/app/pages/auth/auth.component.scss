@@ -7,6 +7,14 @@
   margin: 0;
 }
 
+h1 {
+  color: var(--mat-sys-primary);
+}
+
+#submitButton {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-inverse-on-surface);
+}
 .auth-card {
   width: 100%;
   max-width: 400px;

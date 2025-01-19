@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +21,7 @@ import { TokenService } from '../../core/services/token.service';
     FormsModule,
     MatButtonModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -23,14 +30,19 @@ export class AuthComponent {
   authKey: string = '';
   private tokenService = inject(TokenService);
   private router = inject(Router);
+  private fb = inject(FormBuilder);
+  authForm: FormGroup;
+
+  constructor() {
+    this.authForm = this.fb.group({
+      key: ['', Validators.required],
+    });
+  }
 
   onSubmit(): void {
-    if (this.authKey) {
-      this.tokenService.saveToken(this.authKey);
-      console.log('Authorization Key:', this.authKey);
+    if (this.authForm.valid) {
+      this.tokenService.saveToken(this.authForm.value.key);
       this.router.navigate(['']);
-    } else {
-      console.error('Authorization Key is required!');
     }
   }
 }
