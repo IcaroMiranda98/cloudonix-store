@@ -55,12 +55,22 @@
   background-color: var(--mat-sys-tertiary);
   color: var(--mat-sys-inverse-on-surface);
   margin-right: auto;
+  @media (max-width: 480px) {
+    margin-right: inherit;
+  }
 }
 
 mat-card-actions {
   display: flex;
   align-items: center;
   gap: 2vh;
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+    button {
+      width: inherit;
+    }
+  }
 }
 .mat-mdc-card-actions {
   padding: 8px 0 8px 0;
