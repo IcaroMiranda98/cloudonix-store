@@ -1,4 +1,4 @@
   @if(id){
-   <product-component [id]="id" [isEditRoute]="true" (result)="productResultProcess($event)" [title]="title">
+   <product-component [id]="id" [isEditRoute]="true" (resultEmit)="productResultProcess($event)" [title]="title">
    </product-component>
   }
