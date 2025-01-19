@@ -65,7 +65,7 @@ mat-card-actions {
   align-items: center;
   gap: 2vh;
   @media (max-width: 480px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
     button {
       width: inherit;

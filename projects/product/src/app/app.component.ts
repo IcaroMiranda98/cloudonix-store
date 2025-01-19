@@ -22,7 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductService } from '../services/product.service';
 import { Product } from './product';
 
@@ -47,19 +47,18 @@ import { Product } from './product';
 })
 export class AppComponent implements OnChanges {
   @Input() id!: string;
-  @Input() isEditRoute: boolean = false;
-  @Input() title: string = '';
-  @Output() result = new EventEmitter<{}>();
+  @Input() isEditRoute = false;
+  @Input() title = '';
+  @Output() resultEmit = new EventEmitter<object>();
   productForm: FormGroup;
-  profileProperties: { key: string; value: string }[] = [];
+  profileProperties: { key: string; value: string | number }[] = [];
   types = ['furniture', 'equipment', 'stationary', 'part'];
 
   private fb = inject(FormBuilder);
-  private snackBar = inject(MatSnackBar);
   private productService = inject(ProductService);
 
   constructor() {
-    this.productForm = this._genereteFormControls();
+    this.productForm = this._generateFormControls();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isEditRoute'] && this.isEditRoute) {
@@ -70,7 +69,7 @@ export class AppComponent implements OnChanges {
     }
   }
 
-  private _genereteFormControls() {
+  private _generateFormControls() {
     return this.fb.group({
       id: [0, Validators.required],
       name: ['', Validators.required],
@@ -89,7 +88,7 @@ export class AppComponent implements OnChanges {
     this.productForm.patchValue(product);
   }
 
-  private _filterProfile(profile: Record<string, string>) {
+  private _filterProfile(profile: Record<string, string | number>) {
     const keysToRemove = ['available', 'type', 'backlog'];
     const keys = Object.keys(profile).filter(
       (key) => !keysToRemove.includes(key)
@@ -99,7 +98,7 @@ export class AppComponent implements OnChanges {
 
   removeProfileProperty(index: number) {
     const key = this.profileProperties[index].key;
-    (this.productForm.get('profile') as FormGroup<any>).removeControl(key);
+    (this.productForm.get('profile') as FormGroup).removeControl(key);
     this.profileProperties.splice(index, 1);
   }
   addProfileProperty() {
@@ -107,11 +106,11 @@ export class AppComponent implements OnChanges {
     this._addProfileProperty(key);
   }
 
-  private _addProfileProperty(key: string, value?: string) {
+  private _addProfileProperty(key: string, value?: string | number) {
     const formGroup = this.productForm.get('profile') as FormGroup;
     if (key) {
       if (formGroup.contains(key) && !value) {
-        alert(`Property "${key}" alredy added!`);
+        alert(`Property "${key}" already added!`);
         return;
       }
 
@@ -127,16 +126,16 @@ export class AppComponent implements OnChanges {
     }
 
     if (this.isEditRoute) {
-      this._updateproduct();
+      this._updateProduct();
     } else {
-      this._createproduct();
+      this._createProduct();
     }
   }
 
-  private _createproduct() {
+  private _createProduct() {
     this.productService.createProduct(this.productForm.value).subscribe({
-      next: (product) => {
-        this.result.emit({
+      next: () => {
+        this.resultEmit.emit({
           result: true,
           message: 'product created successfully!',
         });
@@ -148,7 +147,7 @@ export class AppComponent implements OnChanges {
         } else {
           errorMessage = 'An unexpected error occurred.';
         }
-        this.result.emit({
+        this.resultEmit.emit({
           result: false,
           message: errorMessage,
         });
@@ -156,12 +155,12 @@ export class AppComponent implements OnChanges {
     });
   }
 
-  private _updateproduct() {
+  private _updateProduct() {
     const updatedProduct = { ...this.productForm.value };
     //delete updatedProduct.sku;
     this.productService.updateProduct(updatedProduct).subscribe({
-      next: (product) => {
-        this.result.emit({
+      next: () => {
+        this.resultEmit.emit({
           result: true,
           message: 'Product updated successfully!',
         });
@@ -173,7 +172,7 @@ export class AppComponent implements OnChanges {
         } else {
           errorMessage = 'An unexpected error occurred.';
         }
-        this.result.emit({
+        this.resultEmit.emit({
           result: false,
           message: errorMessage,
         });
@@ -188,7 +187,6 @@ export class AppComponent implements OnChanges {
 
     this.productService.getProduct(id).subscribe({
       next: (product: Product) => {
-        //this.product = product;
         this.loadDynamicFormgroup(product.profile);
         this._loadForm(product);
       },
@@ -199,7 +197,7 @@ export class AppComponent implements OnChanges {
         } else {
           errorMessage = 'An unexpected error occurred.';
         }
-        this.result.emit({
+        this.resultEmit.emit({
           result: false,
           message: errorMessage,
         });
@@ -207,7 +205,7 @@ export class AppComponent implements OnChanges {
     });
   }
 
-  loadDynamicFormgroup(profile: Record<string, string>) {
+  loadDynamicFormgroup(profile: Record<string, string | number>) {
     const keys = this._filterProfile(profile);
     keys.forEach((key) => {
       this._addProfileProperty(key, profile[key]);
@@ -215,6 +213,6 @@ export class AppComponent implements OnChanges {
   }
 
   cancel() {
-    this.result.emit();
+    this.resultEmit.emit();
   }
 }
