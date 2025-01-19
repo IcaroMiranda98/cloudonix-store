@@ -1,12 +1,8 @@
 .items-list {
+  padding: 1rem;
   margin: 2rem 0 2rem 0;
   box-shadow: 0px 6px 10px -4px rgba(0, 0, 0, 0.2),
     0px 10px 18px 0px rgba(0, 0, 0, 0.14), 0px 3px 5px -2px rgba(0, 0, 0, 0.12);
-}
-
-.mat-mdc-form-field {
-  font-size: 14px;
-  width: 100%;
 }
 
 table {
@@ -49,4 +45,5 @@ table {
 
 #filter {
   background-color: var(--mat-sys-background);
+  width: 100%;
 }

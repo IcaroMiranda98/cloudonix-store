@@ -24,6 +24,7 @@ export class EditComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
+    debugger;
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
     this.id = id;
