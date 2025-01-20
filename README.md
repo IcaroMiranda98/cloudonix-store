@@ -1,9 +1,9 @@
 # Cloudonix Store
-
-![Pre-visualizacaodeApp-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/e59e458c-1417-4db0-bdad-97be9bae8303)
-
-
 **Cloudonix Store** is a simple frontend application built with Angular 19 that interacts with a REST service to manage a collection of products for an online store. The project was developed as part of a technical challenge, with a focus on modern Angular features such as Web Components and responsiveness.
+
+<img src="https://github.com/user-attachments/assets/e59e458c-1417-4db0-bdad-97be9bae8303" width="430px" height="932px" >
+
+
 
 ## Features
 
