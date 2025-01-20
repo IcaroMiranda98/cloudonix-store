@@ -1,59 +1,59 @@
-# CloudonixStore
+# Cloudonix Store
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+![Pre-visualizacaodeApp-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/e59e458c-1417-4db0-bdad-97be9bae8303)
 
-## Development server
 
-To start a local development server, run:
+**Cloudonix Store** is a simple frontend application built with Angular 19 that interacts with a REST service to manage a collection of products for an online store. The project was developed as part of a technical challenge, with a focus on modern Angular features such as Web Components and responsiveness.
 
-```bash
-ng serve
-```
+## Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Authorization Login**: The application requires an authorization key to access the product list.
+- **Product CRUD**: The application allows creating, editing, and deleting products.
+- **Web Components**: Custom components for editing product properties.
+- **Responsiveness**: The application is designed to work well on mobile devices.
+- **Docker**: The application can be run in a Docker container.
 
-## Code scaffolding
+## Technologies Used
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Angular 19**
+- **Web Components**
+- **Docker**
+- **Angular Material**
+- **RxJS**
+- **TypeScript**
 
-```bash
-ng generate component component-name
-```
+## How to Run
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Prerequisites
 
-```bash
-ng generate --help
-```
+- **Node.js** (recommended version: 16 or higher)
+- **Angular CLI** (globally installed)
+- **Docker** (for running the application in a container)
 
-## Building
+### Steps to Run Locally
 
-To build the project run:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/IcaroMiranda98/cloudonix-store.git
+   cd cloudonix-store
 
-```bash
-ng build
-```
+2. **Install dependencies**:
+   ```bash
+   npm install
+3. **Build of Product WebComponent**:
+   ```bash
+   npm buildProduct
+3. **Run the application**:
+   ```bash
+   npm run start
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Using Docker
+1. **Build the Docker image:**:
+   ```bash
+   docker build -t cloudonix-store . && docker run -d -p 8081:80 --name cloudonix-store-container cloudonix-store
 
-## Running unit tests
+2. **On your favourite browser, try**
+   ```bash
+   http://localhost:8081/home
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
