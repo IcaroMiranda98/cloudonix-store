@@ -47,21 +47,26 @@
           type="number"
           placeholder="Product Cost"
         />
-        <mat-error
-          *ngIf="productForm.get('cost')?.hasError('required')"
+        @if(productForm.get('cost')?.hasError('required')){
+          <mat-error
           id="costError"
           >Cost is required</mat-error
         >
-        <mat-error
-          *ngIf="productForm.get('cost')?.hasError('min')"
+        }
+        
+        @if(productForm.get('cost')?.hasError('min')){
+          <mat-error
           id="costError"
           >Cost must be greater than 0</mat-error
         >
-        <mat-error
-          *ngIf="productForm.get('cost')?.hasError('maxDecimals')"
+        }
+        @if(productForm.get('cost')?.hasError('maxDecimals')){
+          <mat-error
           id="costError"
           >Cost must have a maximum of two decimal</mat-error
-        >
+          >
+        }
+        
       </mat-form-field>
 
       <div

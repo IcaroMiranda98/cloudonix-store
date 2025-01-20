@@ -12,6 +12,7 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
+  NG_VALIDATORS,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -45,6 +46,13 @@ import { decimalValidator } from './validators';
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.scss',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: decimalValidator,
+      multi: true,
+    },
+  ],
 })
 export class AppComponent implements OnChanges {
   @Input() id!: string;

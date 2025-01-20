@@ -34,6 +34,5 @@ export const routes: Routes = [
       import('./pages/auth/auth.component').then((mod) => mod.AuthComponent),
     canActivate: [LoginGuard],
   },
-
-  { path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
