@@ -54,6 +54,6 @@
 
 2. **On your favourite browser, try**
    ```bash
-   http://localhost:8081/home
+   http://localhost:8081
 
 
