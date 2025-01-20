@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "buildProduct": "ng build --project product --configuration production --output-hashing none --single-bundle true",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "docker": "docker build -t cloudonix-store . && docker run -d -p 8081:80 --name cloudonix-store-container cloudonix-store"
   },
   "private": true,
   "dependencies": {

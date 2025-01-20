@@ -14,5 +14,9 @@ import { HeaderComponent } from './shared/header/header.component';
 export class AppComponent {
   title = 'Cloudonix Store';
   private router = inject(Router);
-  isLoginPage = computed(() => this.router.url === '/auth');
+  //isLoginPage = computed(() => this.router.url === '/auth');
+
+  isLoginPage(): boolean {
+    return this.router.url === '/auth';
+  }
 }
