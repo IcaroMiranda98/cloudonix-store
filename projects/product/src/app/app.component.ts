@@ -91,7 +91,7 @@ export class AppComponent implements OnChanges {
   private _filterProfile(profile: Record<string, string | number>) {
     const keysToRemove = ['available', 'type', 'backlog'];
     const keys = Object.keys(profile).filter(
-      (key) => !keysToRemove.includes(key)
+      (key) => !keysToRemove.includes(key),
     );
     return keys;
   }

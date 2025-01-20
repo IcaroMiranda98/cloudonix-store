@@ -1,14 +1,11 @@
-
-
 @if (!isLoginPage()) {
   <app-header></app-header>
 }
 <main id="root">
   <app-container>
-  <router-outlet /> 
-</app-container>
+    <router-outlet />
+  </app-container>
 </main>
 @if (!isLoginPage()) {
   <app-footer></app-footer>
 }
-

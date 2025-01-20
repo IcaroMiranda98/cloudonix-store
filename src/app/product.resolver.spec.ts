@@ -6,7 +6,7 @@ import { ProductResolver } from './product.resolver';
 describe('productResolver', () => {
   const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
     TestBed.runInInjectionContext(
-      () => new ProductResolver(...resolverParameters)
+      () => new ProductResolver(...resolverParameters),
     );
 
   beforeEach(() => {

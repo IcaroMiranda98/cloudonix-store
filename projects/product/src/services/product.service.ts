@@ -28,7 +28,7 @@ export class ProductService {
             console.error('Bad Request Error:', error.error.message);
           }
           return throwError(() => error);
-        })
+        }),
       );
   }
 

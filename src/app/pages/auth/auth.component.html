@@ -1,5 +1,7 @@
 <main class="auth-container">
-<header><h1 style="margin-right: 20vh;">Cloudonix|<span>Store</span></h1></header>
+  <header>
+    <h1 style="margin-right: 20vh">Cloudonix|<span>Store</span></h1>
+  </header>
 
   <mat-card class="auth-card">
     <mat-card-header>
@@ -10,11 +12,18 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Authorization Key</mat-label>
           <input matInput formControlName="key" type="text" />
-          @if(authForm.get('key')?.hasError('required')){
-            <mat-error  id="keyError">Key is required</mat-error>
+          @if (authForm.get("key")?.hasError("required")) {
+            <mat-error id="keyError">Key is required</mat-error>
           }
         </mat-form-field>
-        <button [disabled]="authForm.invalid" mat-raised-button color="primary" id="submitButton" type="submit" class="full-width">
+        <button
+          [disabled]="authForm.invalid"
+          mat-raised-button
+          color="primary"
+          id="submitButton"
+          type="submit"
+          class="full-width"
+        >
           Submit
         </button>
       </form>

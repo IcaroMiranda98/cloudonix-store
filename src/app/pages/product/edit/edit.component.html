@@ -1,4 +1,9 @@
-  @if(id){
-   <product-component [id]="id" [isEditRoute]="true" (resultEmit)="productResultProcess($event)" [title]="title">
-   </product-component>
-  }
+@if (id) {
+  <product-component
+    [id]="id"
+    [isEditRoute]="true"
+    (resultEmit)="productResultProcess($event)"
+    [title]="title"
+  >
+  </product-component>
+}

@@ -1,9 +1,9 @@
-  @if(!isLargeScreen){
-    @defer {
-      <app-product-list-card  />
-    } 
-  }@else{
-    @defer {
-      <app-product-list-table />
-    }
+@if (!isLargeScreen) {
+  @defer {
+    <app-product-list-card />
   }
+} @else {
+  @defer {
+    <app-product-list-table />
+  }
+}

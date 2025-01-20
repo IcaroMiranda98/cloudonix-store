@@ -1,17 +1,30 @@
-<mat-card >
+<mat-card>
   <mat-card-header>
     <mat-card-title>{{ product.id }} - {{ product.name }}</mat-card-title>
     <mat-card-subtitle>SKU: {{ product.sku }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>{{product.description}}</p>
+    <p>{{ product.description }}</p>
     <p>Price: {{ product.cost | currency }}</p>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-icon-button color="primary" aria-label="Edit item" type="button" [routerLink]="['/product/edit', product.id]">
+    <button
+      mat-icon-button
+      color="primary"
+      aria-label="Edit item"
+      type="button"
+      [routerLink]="['/product/edit', product.id]"
+    >
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button color="warn" aria-label="Delete item" type="button" (click)="deleteProduct()">
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="Delete item"
+      type="button"
+      (click)="deleteProduct()"
+    >
       <mat-icon>delete_forever</mat-icon>
     </button>
   </mat-card-actions>
+</mat-card>

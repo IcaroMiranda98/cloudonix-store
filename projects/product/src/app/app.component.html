@@ -1,67 +1,135 @@
 <mat-card id="matCard" appearance="outlined">
   <mat-card-header>
-    <mat-card-title style="margin-bottom: 2vh;">{{title}}</mat-card-title>
+    <mat-card-title style="margin-bottom: 2vh">{{ title }}</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <form [formGroup]="productForm" (ngSubmit)="submitForm()" class="main-form">
-      
       <mat-form-field appearance="outline" aria-label="Product Name">
         <mat-label>Name</mat-label>
-        <input matInput formControlName="name" placeholder="Product Name" >
-        <mat-error *ngIf="productForm.get('name')?.hasError('required')" id="nameError">Name is required</mat-error>
+        <input matInput formControlName="name" placeholder="Product Name" />
+        <mat-error
+          *ngIf="productForm.get('name')?.hasError('required')"
+          id="nameError"
+          >Name is required</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline" aria-label="Product Description">
         <mat-label>Description</mat-label>
-        <input matInput formControlName="description" placeholder="Product Description" >
-        <mat-error *ngIf="productForm.get('description')?.hasError('required')" id="descriptionError">Description is required</mat-error>
+        <input
+          matInput
+          formControlName="description"
+          placeholder="Product Description"
+        />
+        <mat-error
+          *ngIf="productForm.get('description')?.hasError('required')"
+          id="descriptionError"
+          >Description is required</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline" aria-label="Product SKU">
         <mat-label>SKU</mat-label>
-        <input matInput formControlName="sku" placeholder="Product SKU" >
-        <mat-error *ngIf="productForm.get('sku')?.hasError('required')" id="skuError">SKU is required</mat-error>
+        <input matInput formControlName="sku" placeholder="Product SKU" />
+        <mat-error
+          *ngIf="productForm.get('sku')?.hasError('required')"
+          id="skuError"
+          >SKU is required</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline" aria-label="Product Cost">
         <mat-label>Cost</mat-label>
-        <input matInput formControlName="cost" type="number" placeholder="Product Cost">
-        <mat-error *ngIf="productForm.get('cost')?.hasError('required')" id="costError">Cost is required</mat-error>
-        <mat-error *ngIf="productForm.get('cost')?.hasError('min')" id="costError">Cost must be greater than 0</mat-error>
+        <input
+          matInput
+          formControlName="cost"
+          type="number"
+          placeholder="Product Cost"
+        />
+        <mat-error
+          *ngIf="productForm.get('cost')?.hasError('required')"
+          id="costError"
+          >Cost is required</mat-error
+        >
+        <mat-error
+          *ngIf="productForm.get('cost')?.hasError('min')"
+          id="costError"
+          >Cost must be greater than 0</mat-error
+        >
       </mat-form-field>
 
-      <div formGroupName="profile" class="profile-form" aria-label="Product Profile">
-        
+      <div
+        formGroupName="profile"
+        class="profile-form"
+        aria-label="Product Profile"
+      >
         <div class="type-backlog-row">
           <mat-form-field appearance="outline" aria-label="Product Type">
             <mat-label>Type</mat-label>
             <mat-select formControlName="type" aria-label="Select Product Type">
-              <mat-option *ngFor="let type of types" [value]="type">{{ type | titlecase }}</mat-option>
+              <mat-option *ngFor="let type of types" [value]="type">{{
+                type | titlecase
+              }}</mat-option>
             </mat-select>
           </mat-form-field>
-          
+
           <mat-form-field appearance="outline" aria-label="Backlog Quantity">
             <mat-label>Backlog</mat-label>
-            <input matInput formControlName="backlog" type="number" placeholder="Backlog Quantity" >
-            <mat-error *ngIf="productForm.get('backlog')?.hasError('required')" id="backlogError">Backlog quantity is required</mat-error>
+            <input
+              matInput
+              formControlName="backlog"
+              type="number"
+              placeholder="Backlog Quantity"
+            />
+            <mat-error
+              *ngIf="productForm.get('backlog')?.hasError('required')"
+              id="backlogError"
+              >Backlog quantity is required</mat-error
+            >
           </mat-form-field>
         </div>
 
-        <mat-checkbox formControlName="available" aria-label="Product Availability">Available</mat-checkbox>
+        <mat-checkbox
+          formControlName="available"
+          aria-label="Product Availability"
+          >Available</mat-checkbox
+        >
 
         <div>
           <div class="custom-properties-add-button">
             <h3 aria-label="Custom Properties">Custom Properties</h3>
-            <button mat-raised-button type="button" color="primary" (click)="addProfileProperty()" aria-label="Add Custom Property">Add Property</button>
+            <button
+              mat-raised-button
+              type="button"
+              color="primary"
+              (click)="addProfileProperty()"
+              aria-label="Add Custom Property"
+            >
+              Add Property
+            </button>
           </div>
-          
-          <div *ngFor="let property of profileProperties; let i = index" class="dynamic-inputs" aria-label="Custom Property">
+
+          <div
+            *ngFor="let property of profileProperties; let i = index"
+            class="dynamic-inputs"
+            aria-label="Custom Property"
+          >
             <mat-form-field appearance="outline">
               <mat-label>{{ property.key }}</mat-label>
-              <input matInput [formControlName]="property.key" placeholder="Value">
+              <input
+                matInput
+                [formControlName]="property.key"
+                placeholder="Value"
+              />
             </mat-form-field>
-            <button mat-icon-button color="warn" type="button" (click)="removeProfileProperty(i)" aria-label="Remove Custom Property">
+            <button
+              mat-icon-button
+              color="warn"
+              type="button"
+              (click)="removeProfileProperty(i)"
+              aria-label="Remove Custom Property"
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </div>
@@ -69,22 +137,42 @@
       </div>
 
       <mat-card-actions align="end">
-        <button mat-fab extended type="button" (click)="cancel()" id="cancelButton" aria-label="Cancel Form">
+        <button
+          mat-fab
+          extended
+          type="button"
+          (click)="cancel()"
+          id="cancelButton"
+          aria-label="Cancel Form"
+        >
           <mat-icon>cancel</mat-icon>
           Cancel
         </button>
 
-        <button *ngIf="!isEditRoute" mat-fab extended type="reset" id="resetButton" aria-label="Clear Form">
+        <button
+          *ngIf="!isEditRoute"
+          mat-fab
+          extended
+          type="reset"
+          id="resetButton"
+          aria-label="Clear Form"
+        >
           <mat-icon>cleaning_services</mat-icon>
           Clear
         </button>
 
-        <button mat-fab extended type="submit" id="createButton" [disabled]="productForm.invalid" aria-label="Save Product">
+        <button
+          mat-fab
+          extended
+          type="submit"
+          id="createButton"
+          [disabled]="productForm.invalid"
+          aria-label="Save Product"
+        >
           <mat-icon>save</mat-icon>
           Save
         </button>
       </mat-card-actions>
-
     </form>
   </mat-card-content>
 </mat-card>

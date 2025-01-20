@@ -13,7 +13,7 @@ import { TokenService } from '../services/token.service';
 export class AuthInterceptor implements HttpInterceptor {
   intercept(
     request: HttpRequest<unknown>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
     const tokenService = inject(TokenService);
     if (tokenService.isTokenized()) {
@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
 export class ErrorInterceptor implements HttpInterceptor {
   intercept(
     req: HttpRequest<unknown>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -41,7 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           alert(error.error.message || 'Invalid request.');
         }
         return throwError(() => error);
-      })
+      }),
     );
   }
 }

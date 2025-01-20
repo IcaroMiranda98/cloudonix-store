@@ -1,15 +1,29 @@
-  <main>
-    <h1><mat-icon>category</mat-icon>  Products</h1>
-    <mat-form-field id="filter" appearance="outline">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. SKU" #input aria-label="Search filter for items">
-    </mat-form-field>
-    @for( product of items$ | async; track product.id){
-      <app-card-item [product]="product" (cardDeleteEmitter)="deleteItem($event)"></app-card-item>
-    }
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+<main>
+  <h1><mat-icon>category</mat-icon> Products</h1>
+  <mat-form-field id="filter" appearance="outline">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. SKU"
+      #input
+      aria-label="Search filter for items"
+    />
+  </mat-form-field>
+  @for (product of items$ | async; track product.id) {
+    <app-card-item
+      [product]="product"
+      (cardDeleteEmitter)="deleteItem($event)"
+    ></app-card-item>
+  }
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-    <button class="floating-button" mat-mini-fab routerLink="/product/new" aria-label="Create new item">
-      <mat-icon>add</mat-icon>
-    </button>
-  </main>
+  <button
+    class="floating-button"
+    mat-mini-fab
+    routerLink="/product/new"
+    aria-label="Create new item"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</main>

@@ -28,10 +28,10 @@ export class ProductService {
                 item.description,
                 item.sku,
                 item.cost,
-                item.profile
-              )
-          )
-        )
+                item.profile,
+              ),
+          ),
+        ),
       );
   }
 
@@ -42,7 +42,7 @@ export class ProductService {
   updateProduct(product: Product): Observable<Product> {
     return this.httpClient.patch<Product>(
       `${this.apiUrl}/items/${product.id}`,
-      product
+      product,
     );
   }
 

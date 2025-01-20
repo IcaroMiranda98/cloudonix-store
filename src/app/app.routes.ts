@@ -14,7 +14,7 @@ export const routes: Routes = [
     path: 'product/new',
     loadComponent: () =>
       import('./pages/product/create/create.component').then(
-        (mod) => mod.CreateComponent
+        (mod) => mod.CreateComponent,
       ),
     canActivate: [AuthGuard],
   },
@@ -23,7 +23,7 @@ export const routes: Routes = [
     path: 'product/edit/:id',
     loadComponent: () =>
       import('./pages/product/edit/edit.component').then(
-        (mod) => mod.EditComponent
+        (mod) => mod.EditComponent,
       ),
     canActivate: [AuthGuard],
   },

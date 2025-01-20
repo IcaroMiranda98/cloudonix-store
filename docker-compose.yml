@@ -1,5 +1,5 @@
 # Specifies Docker Compose file version
-version: '3.8'
+version: "3.8"
 
 # Define the services that make up your app in docker-compose
 services:
