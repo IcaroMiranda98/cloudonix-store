@@ -24,6 +24,24 @@
       mat-form-field {
         flex: 1;
       }
+
+      #spin {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+        .filled-container-height {
+          max-width: 10vh;
+          max-height: 10vh;
+        }
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        #spin {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
 
     .dynamic-inputs {

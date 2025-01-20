@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductService } from '../services/product.service';
 import { Product } from './product';
+import { decimalValidator } from './validators';
 
 @Component({
   selector: 'app-root',
@@ -75,7 +76,10 @@ export class AppComponent implements OnChanges {
       name: ['', Validators.required],
       description: ['', Validators.required],
       sku: ['', Validators.required],
-      cost: [null, [Validators.required, Validators.min(0)]],
+      cost: [
+        null,
+        [Validators.required, Validators.min(0), decimalValidator(2)],
+      ],
       profile: this.fb.group({
         type: ['furniture'],
         available: [true],
@@ -126,13 +130,13 @@ export class AppComponent implements OnChanges {
     }
 
     if (this.isEditRoute) {
-      this._updateProduct();
+      this.updateProduct();
     } else {
-      this._createProduct();
+      this.createProduct();
     }
   }
 
-  private _createProduct() {
+  createProduct() {
     this.productService.createProduct(this.productForm.value).subscribe({
       next: () => {
         this.resultEmit.emit({
@@ -155,7 +159,7 @@ export class AppComponent implements OnChanges {
     });
   }
 
-  private _updateProduct() {
+  updateProduct() {
     const updatedProduct = { ...this.productForm.value };
     //delete updatedProduct.sku;
     this.productService.updateProduct(updatedProduct).subscribe({
@@ -214,5 +218,21 @@ export class AppComponent implements OnChanges {
 
   cancel() {
     this.resultEmit.emit();
+  }
+
+  increment() {
+    const profile = this.productForm.get('profile')!;
+    const currentValue = profile.get('backlog')?.value || 0;
+    const newValue = currentValue + 1;
+    profile.get('backlog')?.setValue(newValue);
+  }
+
+  decrement() {
+    const profile = this.productForm.get('profile')!;
+    const currentValue = profile.get('backlog')?.value;
+    const newValue = currentValue - 1;
+    if (newValue >= 0) {
+      profile.get('backlog')?.setValue(newValue);
+    }
   }
 }

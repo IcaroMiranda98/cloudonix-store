@@ -153,7 +153,10 @@
                 "bundleName": "polyfill-webcomp",
                 "input": "node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce-pf.js"
               }
-            ]
+            ],
+            "codeCoverage": true,
+            "codeCoverageExclude": ["**/*.module.ts", "**/environment*.ts"],
+            "watch": false
           },
           "configurations": {
             "production": {

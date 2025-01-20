@@ -57,6 +57,11 @@
           id="costError"
           >Cost must be greater than 0</mat-error
         >
+        <mat-error
+          *ngIf="productForm.get('cost')?.hasError('maxDecimals')"
+          id="costError"
+          >Cost must have a maximum of two decimal</mat-error
+        >
       </mat-form-field>
 
       <div
@@ -73,7 +78,8 @@
               }}</mat-option>
             </mat-select>
           </mat-form-field>
-
+          <div id="spin">
+          <button mat-mini-fab type="button" (click)="decrement()"><mat-icon>remove</mat-icon></button>
           <mat-form-field appearance="outline" aria-label="Backlog Quantity">
             <mat-label>Backlog</mat-label>
             <input
@@ -88,6 +94,8 @@
               >Backlog quantity is required</mat-error
             >
           </mat-form-field>
+          <button mat-mini-fab  (click)="increment()" type="button"><mat-icon>add</mat-icon></button>
+        </div>
         </div>
 
         <mat-checkbox

@@ -5,7 +5,6 @@ import { ProductListTableComponent } from '../product/product-list-table/product
   selector: 'app-home',
   imports: [ProductListCardComponent, ProductListTableComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
   standalone: true,
 })
 export class HomeComponent implements OnInit {
