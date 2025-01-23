@@ -11,7 +11,7 @@ export class ProductService {
   readonly apiUrl: string = environment.apiUrl;
   private httpClient = inject(HttpClient);
 
-  getProduct(id: string): Observable<Product> {
+  getProduct(id: string | number): Observable<Product> {
     return this.httpClient.get<Product>(`${this.apiUrl}/items/${id}`);
   }
 
@@ -30,9 +30,5 @@ export class ProductService {
           return throwError(() => error);
         }),
       );
-  }
-
-  deleteProduct(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/items/${id}`);
   }
 }

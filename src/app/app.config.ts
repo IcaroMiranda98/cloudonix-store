@@ -8,10 +8,8 @@ import {
 } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
-import {
-  AuthInterceptor,
-  ErrorInterceptor,
-} from './core/interceptor/auth.interceptor';
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
