@@ -21,7 +21,7 @@ const product: Product = {
   profile: { type: 'equipment', available: true, backlog: 10 },
 };
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   beforeEach(async () => {
     mockProductService = jasmine.createSpyObj('ProductService', [
       'createProduct',
