@@ -60,7 +60,7 @@ export class AppComponent implements OnChanges {
   @Input() title = '';
   @Output() resultEmit = new EventEmitter<object>();
   productForm: FormGroup;
-  profileProperties: { key: string; value: string | number }[] = [];
+  profileProperties: { key: string; value: string | number | boolean }[] = [];
   types = ['furniture', 'equipment', 'stationary', 'part'];
 
   private fb = inject(FormBuilder);
@@ -100,7 +100,7 @@ export class AppComponent implements OnChanges {
     this.productForm.patchValue(product);
   }
 
-  private _filterProfile(profile: Record<string, string | number>) {
+  private _filterProfile(profile: Record<string, string | number | boolean>) {
     const keysToRemove = ['available', 'type', 'backlog'];
     const keys = Object.keys(profile).filter(
       (key) => !keysToRemove.includes(key),
@@ -113,12 +113,12 @@ export class AppComponent implements OnChanges {
     (this.productForm.get('profile') as FormGroup).removeControl(key);
     this.profileProperties.splice(index, 1);
   }
-  addProfileProperty() {
+  addNewProfileProperty() {
     const key: string = prompt('Enter the key for the new property:')!;
-    this._addProfileProperty(key);
+    this.addProfileProperty(key);
   }
 
-  private _addProfileProperty(key: string, value?: string | number) {
+  addProfileProperty(key: string, value?: string | number | boolean) {
     const formGroup = this.productForm.get('profile') as FormGroup;
     if (key) {
       if (formGroup.contains(key) && !value) {
@@ -193,10 +193,6 @@ export class AppComponent implements OnChanges {
   }
 
   fetchProduct(id: string): void {
-    if (this.id == undefined) {
-      return;
-    }
-
     this.productService.getProduct(id).subscribe({
       next: (product: Product) => {
         this.loadDynamicFormgroup(product.profile);
@@ -217,10 +213,10 @@ export class AppComponent implements OnChanges {
     });
   }
 
-  loadDynamicFormgroup(profile: Record<string, string | number>) {
+  loadDynamicFormgroup(profile: Record<string, string | number | boolean>) {
     const keys = this._filterProfile(profile);
     keys.forEach((key) => {
-      this._addProfileProperty(key, profile[key]);
+      this.addProfileProperty(key, profile[key]);
     });
   }
 
@@ -237,10 +233,8 @@ export class AppComponent implements OnChanges {
 
   decrement() {
     const profile = this.productForm.get('profile')!;
-    const currentValue = profile.get('backlog')?.value;
+    const currentValue = profile.get('backlog')?.value || 0;
     const newValue = currentValue - 1;
-    if (newValue >= 0) {
-      profile.get('backlog')?.setValue(newValue);
-    }
+    profile.get('backlog')?.setValue(newValue);
   }
 }

@@ -116,7 +116,7 @@
               mat-raised-button
               type="button"
               color="primary"
-              (click)="addProfileProperty()"
+              (click)="addNewProfileProperty()"
               aria-label="Add Custom Property"
             >
               Add Property
@@ -134,6 +134,7 @@
                 matInput
                 [formControlName]="property.key"
                 placeholder="Value"
+                [id]="property.key"
               />
             </mat-form-field>
             <button

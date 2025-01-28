@@ -4,7 +4,7 @@ export class Product {
   description: string;
   sku: string;
   cost: number;
-  profile: Record<string, string | number>;
+  profile: Record<string, string | number | boolean>;
 
   constructor(
     id: number,

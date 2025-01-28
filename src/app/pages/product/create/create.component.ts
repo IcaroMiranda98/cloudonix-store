@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CreateComponent {
-  id = '';
   title = 'Create a new item';
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
