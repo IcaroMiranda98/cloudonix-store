@@ -56,4 +56,8 @@
    ```bash
    http://localhost:8081
 
+## Running unit tests
+
+As there wasn't enough time to implement unit tests, after sending the repository, I am continuing to work on them in a development branch. Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
 
